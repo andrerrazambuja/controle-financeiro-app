@@ -26,11 +26,11 @@ const db = new sqlite3.Database('./sqlite.db', sqlite3.OPEN_READWRITE, (err: Err
 //     console.log("Uma linha foi adicionada com sucesso.")    
 // })
 
-// const sql = `SELECT * FROM users`
-// db.all(sql, [], (err: Error, rows: Array<any>) => {
-//     if(err) return console.error(err.message);
-//     rows.forEach(row => console.log(row));
-// })
+const sql = `SELECT * FROM users`
+db.all(sql, [], (err: Error, rows: Array<any>) => {
+    if(err) return console.error(err.message);
+    rows.forEach(row => console.log(row));
+})
 
 db.close((err: Error) => {
     if(err) return console.error(err.message);
