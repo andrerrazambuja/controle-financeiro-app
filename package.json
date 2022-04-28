@@ -1,0 +1,32 @@
+{
+  "name": "controle-financeiro-app",
+  "version": "1.0.0",
+  "description": "APP de controle de finanças usando Node, Express, Typescript",
+  "main": "source/server.ts",
+  "scripts": {
+    "dev": "nodemon source/server.ts",
+    "build": "rm -rf build/ && prettier --write source/ && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrerrazambuja/controle-financeiro-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrerrazambuja/controle-financeiro-app/issues"
+  },
+  "homepage": "https://github.com/andrerrazambuja/controle-financeiro-app#readme",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
+    "axios": "^0.27.2",
+    "express": "^4.18.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "sqlite3": "^5.0.6",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  }
+}
