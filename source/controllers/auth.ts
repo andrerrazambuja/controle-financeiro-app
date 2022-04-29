@@ -76,7 +76,7 @@ const authUser = async (req: Request, res: Response, next: NextFunction) => {
 
 // registra um user
 const registerUser = async (req: Request, res: Response, next: NextFunction) => {
-    // pega o username/senha do usuário dos parametros da requisição
+    // pega o username/senha do usuário do body da requisição
     const username: string = req.body.username;
     const password: string = req.body.password;
     

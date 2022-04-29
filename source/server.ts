@@ -26,11 +26,54 @@ const db = new sqlite3.Database('./sqlite.db', sqlite3.OPEN_READWRITE, (err: Err
 //     console.log("Uma linha foi adicionada com sucesso.")    
 // })
 
-const sql = `SELECT * FROM users`
-db.all(sql, [], (err: Error, rows: Array<any>) => {
+const sqlSel1 = `SELECT * FROM users`
+db.all(sqlSel1, [], (err: Error, rows: Array<any>) => {
     if(err) return console.error(err.message);
+    console.log('--------------')
     rows.forEach(row => console.log(row));
 })
+
+// db.run(`CREATE TABLE tipos(
+//             id INTEGER PRIMARY KEY UNIQUE,
+//             descricao TEXT NOT NULL
+//         )`);
+
+// const sql = `INSERT INTO tipos (descricao) VALUES(?)`
+// db.run(sql, ['Transporte'], (err: Error) => {
+//     if(err) return console.error(err.message);
+//     console.log("Uma linha foi adicionada com sucesso.")    
+// })
+
+const sqlSel2 = `SELECT * FROM tipos`
+db.all(sqlSel2, [], (err: Error, rows: Array<any>) => {
+    if(err) return console.error(err.message);
+    console.log('--------------')
+    rows.forEach(row => console.log(row));
+})
+
+// db.run(`CREATE TABLE movimentos(
+//             id INTEGER PRIMARY KEY UNIQUE,
+//             user_id INTEGER NOT NULL,
+//             tipo_id INTEGER NOT NULL,
+//             valor REAL NOT NULL,
+//             data TEXT
+//         )`);
+
+// const sql = `INSERT INTO movimentos (user_id, tipo_id, valor, data) VALUES(?,?,?, DATE('now'))`
+// db.run(sql, [1,1,500], (err: Error) => {
+//     if(err) return console.error(err.message);
+//     console.log("Uma linha foi adicionada com sucesso.")    
+// })
+
+const sqlSel3 = `SELECT * FROM movimentos INNER JOIN tipos ON tipos.id = movimentos.tipo_id`
+db.all(sqlSel3, [], (err: Error, rows: Array<any>) => {
+    if(err) return console.error(err.message);
+    console.log('--------------')
+    rows.forEach(row => console.log(row));
+})
+
+
+
 
 db.close((err: Error) => {
     if(err) return console.error(err.message);
