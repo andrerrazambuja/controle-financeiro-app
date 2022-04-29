@@ -63,10 +63,13 @@ const authUser = async (req: Request, res: Response, next: NextFunction) => {
             });
         }
 
+        user.password = "";
+
         //Sucesso
         return res.status(200).json({
             message: "Autenticação realizada com sucesso.",
-            auth: true
+            auth: true,
+            user: user
         });
     })
 };

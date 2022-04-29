@@ -15,10 +15,10 @@ const db = new sqlite3.Database('./sqlite.db', sqlite3.OPEN_READWRITE, (err: Err
 })
 
 // db.run(`CREATE TABLE users(
-//     id INTEGER PRIMARY KEY UNIQUE,
-//     username UNIQUE NOT NULL,
-//     password NOT NULL
-// )`);
+//             id INTEGER PRIMARY KEY UNIQUE,
+//             username UNIQUE NOT NULL,
+//             password NOT NULL
+//         )`);
 
 // const sql = `INSERT INTO users (username, password) VALUES(?,?)`
 // db.run(sql, ['andre', '123'], (err: Error) => {
