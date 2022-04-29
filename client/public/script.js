@@ -1,7 +1,6 @@
 
 var user;
 $(function() {
-
     
     var jsonUser = localStorage.getItem('user');
     if(jsonUser != "undefined") {
@@ -16,6 +15,21 @@ $(function() {
         localStorage.removeItem('user');
         window.location.reload();
     });
+
+    $("#btnEntrada").on("click", function(e){
+        $(".botoes-movimentos").slideUp();
+        $("#formEntrada").slideDown();
+    })
+
+    $("#btnSaida").on("click", function(e){
+        $(".botoes-movimentos").slideUp();
+        $("#formSaida").slideDown();
+    })
+
+    $(".form-movimentos .movimentos-cancelar").on("click", function(e) {
+        $(".botoes-movimentos").slideDown();
+        $(".form-movimentos").slideUp();
+    })
 
 
 })

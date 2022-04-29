@@ -21,8 +21,84 @@
         </div>
     </div>
 
-    <h1>Sistema de Controle Financeiro</h1><button id="btnLogout">Logout</button>
+    <header>
+        <h2>Sistema de Controle Financeiro</h2>
+        <button id="btnLogout">Sair</button>
+    </header>
 
+    <section class="visao-geral">
+        <div class="card" id="cardSaldo" style="background-color: rgb(61, 87, 156);">
+            <span class="card-title">Saldo da Conta</span>
+            <span class="card-value">R$100.000,00</span>
+        </div>
+        <div class="card" id="cardEntradas" style="background-color: rgb(74, 156, 111);">
+            <span class="card-title">Entradas</span>
+            <span class="card-value">R$100.000,00</span>
+        </div>
+        <div class="card" id="cardSaidas" style="background-color: rgb(168, 60, 60);">
+            <span class="card-title">Saídas</span>
+            <span class="card-value">R$100.000,00</span>
+        </div>
+    </section>
+    
+    <section class="movimentos">
+        <div class="botoes-movimentos">
+            <button type="button" id="btnEntrada" style="background-color: rgb(74, 156, 111);">Cadastrar entrada</button>
+            <button type="button" id="btnSaida" style="background-color: rgb(168, 60, 60);">Cadastrar saída</button>
+        </div>
+        <div class="form-movimentos" id="formEntrada" style="display:none;">
+            <input id="entrada" type="number">
+            <button class="movimentos-cancelar">Cancelar</button>
+            <button class="movimentos-confirmar">Confirmar</button>
+        </div>
+        <div class="form-movimentos" id="formSaida" style="display:none;">
+            <input id="saida" type="number">
+            <select id="tipoSaida">
+                <option value="1">Entretenimento</option>
+                <option value="2">Alimentação</option>
+                <option value="3">Educação</option>
+                <option value="4">Sáude</option>
+                <option value="5">Transporte</option>
+            </select>
+            <button class="movimentos-cancelar">Cancelar</button>
+            <button class="movimentos-confirmar">Confirmar</button>
+        </div>
+    </section>
+
+    <section class="extrato">
+        <h1>Extrato</h1>
+        <table class="table-extrato">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Entretenimento</td>
+                    <td>R$10,00</td>
+                </tr>
+                <tr>
+                    <td>Saúde</td>
+                    <td>R$250,00</td>
+                </tr>
+                <tr>
+                    <td>Entrada</td>
+                    <td>R$10,00</td>
+                </tr>
+                <tr>
+                    <td>Entrada</td>
+                    <td>R$10,00</td>
+                </tr>
+                <tr>
+                    <td>Entrada</td>
+                    <td>R$10,00</td>
+                </tr>
+            </tbody>
+            </table>
+        </table>
+    </section>
 
 </body>
 <script
