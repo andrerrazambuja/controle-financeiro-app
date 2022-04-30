@@ -108,9 +108,9 @@ router.use('/auth/', auth);
 
 router.use('/', finance);
 
-router.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/views', 'index.html'));
-})
+// router.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../client/views', 'index.html'));
+// })
 
 
 

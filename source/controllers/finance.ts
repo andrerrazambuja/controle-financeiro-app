@@ -64,7 +64,7 @@ const delMovimento = async (req: Request, res: Response, next: NextFunction) => 
 
     if(!userId || !movimentoId) return res.status(500).json({message: "Os dados podem ser nulos."});
 
-    const sql = `DELETE FROM movimentos WHERE movimento_id = ${movimentoId}`;
+    const sql = `DELETE FROM movimentos WHERE movimento_id = ${movimentoId} AND user_id = ${userId}`;
     db.run(sql, (err: Error) => {
         //Error Handling
         if(err){

@@ -4,7 +4,7 @@
   "description": "APP de controle de finanças usando Node, Express, Typescript",
   "main": "source/server.ts",
   "scripts": {
-    "dev": "nodemon source/server.ts && cd client && npm run dev",
+    "dev": "nodemon source/server.ts",
     "start": "node server",
     "heroku-postbuild": "cd client/ && npm install && npm run build",
     "build": "rm -rf build/ && prettier --write source/ && tsc"

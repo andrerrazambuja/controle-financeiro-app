@@ -136,7 +136,6 @@ function setUpLoginScreen(){
     })
     //#endregion LOGIN
 
-
 }
 
 function setUpHomePage(user){
