@@ -4,7 +4,6 @@
   "description": "APP de controle de finanças usando Node, Express, Typescript",
   "main": "source/server.ts",
   "scripts": {
-    "dev": "nodemon source/server.ts",
     "start": "nodemon source/server.ts",
     "build": "npm install && cd client && npm install"
   },
