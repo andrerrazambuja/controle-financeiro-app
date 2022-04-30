@@ -29,15 +29,15 @@
     <section class="visao-geral">
         <div class="card" id="cardSaldo" style="background-color: rgb(61, 87, 156);">
             <span class="card-title">Saldo da Conta</span>
-            <span class="card-value">R$100.000,00</span>
+            <span class="card-value"></span>
         </div>
         <div class="card" id="cardEntradas" style="background-color: rgb(74, 156, 111);">
             <span class="card-title">Entradas</span>
-            <span class="card-value">R$100.000,00</span>
+            <span class="card-value"></span>
         </div>
         <div class="card" id="cardSaidas" style="background-color: rgb(168, 60, 60);">
             <span class="card-title">Saídas</span>
-            <span class="card-value">R$100.000,00</span>
+            <span class="card-value"></span>
         </div>
     </section>
     
@@ -54,11 +54,11 @@
         <div class="form-movimentos" id="formSaida" style="display:none;">
             <input id="saida" type="number">
             <select id="tipoSaida">
-                <option value="1">Entretenimento</option>
-                <option value="2">Alimentação</option>
-                <option value="3">Educação</option>
-                <option value="4">Sáude</option>
-                <option value="5">Transporte</option>
+                <option value="2">Entretenimento</option>
+                <option value="3">Alimentação</option>
+                <option value="4">Educação</option>
+                <option value="5">Sáude</option>
+                <option value="6">Transporte</option>
             </select>
             <button class="movimentos-cancelar">Cancelar</button>
             <button class="movimentos-confirmar">Confirmar</button>
@@ -72,38 +72,24 @@
                 <tr>
                     <th>Tipo</th>
                     <th>Valor</th>
+                    <th>Data</th>
+                    <th style="width:1px;"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <!-- <tr>
                     <td>Entretenimento</td>
                     <td>R$10,00</td>
-                </tr>
-                <tr>
-                    <td>Saúde</td>
-                    <td>R$250,00</td>
-                </tr>
-                <tr>
-                    <td>Entrada</td>
-                    <td>R$10,00</td>
-                </tr>
-                <tr>
-                    <td>Entrada</td>
-                    <td>R$10,00</td>
-                </tr>
-                <tr>
-                    <td>Entrada</td>
-                    <td>R$10,00</td>
-                </tr>
+                    <td>02/11/2022</td>
+                    <td>todo btns</td>
+                </tr> -->
             </tbody>
             </table>
         </table>
     </section>
 
 </body>
-<script
-src="https://code.jquery.com/jquery-3.6.0.min.js"
-integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="crossorigin="anonymous"></script>
+<script src="lib/moment.js"></script>
 <script src="script.js"></script>
 </html>

@@ -11,14 +11,13 @@ import finance from './routes/finance';
 //#region DATABASE
 const db = new sqlite3.Database('./sqlite.db', sqlite3.OPEN_READWRITE, (err: Error) => {
     if(err) return console.error(err.message);
-    console.log("Sucesso na conexão com o banco SQLite.")    
 })
 
-// db.run(`CREATE TABLE users(
-//             id INTEGER PRIMARY KEY UNIQUE,
-//             username UNIQUE NOT NULL,
-//             password NOT NULL
-//         )`);
+db.run(`CREATE TABLE IF NOT EXISTS users(
+            id INTEGER PRIMARY KEY UNIQUE,
+            username UNIQUE NOT NULL,
+            password NOT NULL
+        )`);
 
 // const sql = `INSERT INTO users (username, password) VALUES(?,?)`
 // db.run(sql, ['andre', '123'], (err: Error) => {
@@ -26,17 +25,17 @@ const db = new sqlite3.Database('./sqlite.db', sqlite3.OPEN_READWRITE, (err: Err
 //     console.log("Uma linha foi adicionada com sucesso.")    
 // })
 
-const sqlSel1 = `SELECT * FROM users`
-db.all(sqlSel1, [], (err: Error, rows: Array<any>) => {
-    if(err) return console.error(err.message);
-    console.log('--------------')
-    rows.forEach(row => console.log(row));
-})
+// const sqlSel1 = `SELECT * FROM users`
+// db.all(sqlSel1, [], (err: Error, rows: Array<any>) => {
+//     if(err) return console.error(err.message);
+//     console.log('--------------')
+//     rows.forEach(row => console.log(row));
+// })
 
-// db.run(`CREATE TABLE tipos(
-//             id INTEGER PRIMARY KEY UNIQUE,
-//             descricao TEXT NOT NULL
-//         )`);
+db.run(`CREATE TABLE IF NOT EXISTS tipos(
+            id INTEGER PRIMARY KEY UNIQUE,
+            descricao TEXT NOT NULL
+        )`);
 
 // const sql = `INSERT INTO tipos (descricao) VALUES(?)`
 // db.run(sql, ['Transporte'], (err: Error) => {
@@ -44,20 +43,22 @@ db.all(sqlSel1, [], (err: Error, rows: Array<any>) => {
 //     console.log("Uma linha foi adicionada com sucesso.")    
 // })
 
-const sqlSel2 = `SELECT * FROM tipos`
-db.all(sqlSel2, [], (err: Error, rows: Array<any>) => {
-    if(err) return console.error(err.message);
-    console.log('--------------')
-    rows.forEach(row => console.log(row));
-})
+// const sqlSel2 = `SELECT * FROM tipos`
+// db.all(sqlSel2, [], (err: Error, rows: Array<any>) => {
+//     if(err) return console.error(err.message);
+//     console.log('--------------')
+//     rows.forEach(row => console.log(row));
+// })
 
-// db.run(`CREATE TABLE movimentos(
-//             id INTEGER PRIMARY KEY UNIQUE,
-//             user_id INTEGER NOT NULL,
-//             tipo_id INTEGER NOT NULL,
-//             valor REAL NOT NULL,
-//             data TEXT
-//         )`);
+// db.run(`drop table movimentos`)
+
+db.run(`CREATE TABLE IF NOT EXISTS movimentos(
+            movimento_id INTEGER PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            tipo_id INTEGER NOT NULL,
+            valor REAL NOT NULL,
+            data TEXT
+        )`);
 
 // const sql = `INSERT INTO movimentos (user_id, tipo_id, valor, data) VALUES(?,?,?, DATE('now'))`
 // db.run(sql, [1,1,500], (err: Error) => {
@@ -65,12 +66,12 @@ db.all(sqlSel2, [], (err: Error, rows: Array<any>) => {
 //     console.log("Uma linha foi adicionada com sucesso.")    
 // })
 
-const sqlSel3 = `SELECT * FROM movimentos INNER JOIN tipos ON tipos.id = movimentos.tipo_id`
-db.all(sqlSel3, [], (err: Error, rows: Array<any>) => {
-    if(err) return console.error(err.message);
-    console.log('--------------')
-    rows.forEach(row => console.log(row));
-})
+// const sqlSel3 = `SELECT * FROM movimentos INNER JOIN tipos ON tipos.id = movimentos.tipo_id`
+// db.all(sqlSel3, [], (err: Error, rows: Array<any>) => {
+//     if(err) return console.error(err.message);
+//     console.log('--------------')
+//     rows.forEach(row => console.log(row));
+// })
 
 
 
@@ -91,10 +92,10 @@ router.use((req, res, next) => {
     // set the CORS policy
     res.header('Access-Control-Allow-Origin', '*');
     // set the CORS headers
-    res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
+    res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type, Accept, Authorization');
     // set the CORS method headers
     if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST');
+        res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
         return res.status(200).json({});
     }
     next();

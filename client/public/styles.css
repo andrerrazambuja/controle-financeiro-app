@@ -226,10 +226,26 @@ section.extrato {
 .table-extrato th, .table-extrato td{
     text-align: left;
     padding: .6rem .8rem;
-    
-  border: none;
+    border: none;
 }
 
+.table-extrato .linha-entrada .td-valor{
+    color: rgb(43, 190, 43);
+    font-weight: bold;
+}
 
+.table-extrato .linha-saida .td-valor{
+    color: rgb(212, 71, 71);
+    font-weight: bold;
+}
+
+.table-extrato .btn-excluir-tabela{
+    background-color: rgb(168, 60, 60);
+    color: #fff;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+}
 
 /*#endregion SECTION EXTRATO */

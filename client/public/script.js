@@ -10,26 +10,14 @@ $(function() {
     if(!user) {
         setUpLoginScreen()
     }
+    else{
+        setUpHomePage(user);
+    }
 
     $("#btnLogout").on("click", function(e){
         localStorage.removeItem('user');
         window.location.reload();
     });
-
-    $("#btnEntrada").on("click", function(e){
-        $(".botoes-movimentos").slideUp();
-        $("#formEntrada").slideDown();
-    })
-
-    $("#btnSaida").on("click", function(e){
-        $(".botoes-movimentos").slideUp();
-        $("#formSaida").slideDown();
-    })
-
-    $(".form-movimentos .movimentos-cancelar").on("click", function(e) {
-        $(".botoes-movimentos").slideDown();
-        $(".form-movimentos").slideUp();
-    })
 
 
 })
@@ -127,6 +115,7 @@ function setUpLoginScreen(){
                     if(result.auth){
                         delete result.user.password;
                         localStorage.setItem('user', JSON.stringify(result.user));
+                        setUpHomePage(result.user)
                         $(".login-container").hide();
                     }
                     else{
@@ -148,4 +137,184 @@ function setUpLoginScreen(){
     //#endregion LOGIN
 
 
+}
+
+function setUpHomePage(user){
+
+    carregarExtrato(user);
+
+    //TRIGGERS ENTRADAS/SAÍDAS
+    $("#btnEntrada").on("click", function(e){
+        $(".botoes-movimentos").slideUp();
+        $("#formEntrada").slideDown();
+    })
+
+    $("#btnSaida").on("click", function(e){
+        $(".botoes-movimentos").slideUp();
+        $("#formSaida").slideDown();
+    })
+
+    //cancelar
+    $(".form-movimentos .movimentos-cancelar").on("click", function(e) {
+        $(".botoes-movimentos").slideDown();
+        $(".form-movimentos").slideUp();
+        $(".form-movimentos input").val(null);
+    })
+
+    //confirmar add entrada
+    $("#formEntrada .movimentos-confirmar").on("click", function(e){
+
+        let val = $("#formEntrada input#entrada").val();
+
+        dados = {
+            tipoId: 1,
+            userId: user.id,
+            valor: val
+        }
+
+        if(val <= 0){
+            window.alert("Valor não pode ser menor que ou igual a 0.")
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:6060/movimento/add/`,
+            data: dados,
+            success: function (result) {
+                $(".botoes-movimentos").slideDown();
+                $(".form-movimentos").slideUp();
+                $(".form-movimentos input").val(null);
+                carregarExtrato();
+            },
+            error: function (result) {
+                console.log(result);
+                window.alert(result.message);
+            }
+        });
+
+    })
+    
+    //confirmar add saída
+    $("#formSaida .movimentos-confirmar").on("click", function(e){
+
+        let val = $("#formSaida input#saida").val();
+        let tipo = $("#formSaida select#tipoSaida").val();
+
+        dados = {
+            tipoId: tipo,
+            userId: user.id,
+            valor: val
+        }
+
+        if(val <= 0){
+            window.alert("Valor não pode ser menor que ou igual a 0.")
+            return false;
+        }
+
+        if(tipo == 1){
+            window.alert("Tipo inválido.")
+            return false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: `http://localhost:6060/movimento/add/`,
+            data: dados,
+            success: function (result) {
+                $(".botoes-movimentos").slideDown();
+                $(".form-movimentos").slideUp();
+                $(".form-movimentos input").val(null);
+                carregarExtrato();
+            },
+            error: function (result) {
+                console.log(result);
+                window.alert(result.responseJSON.message);
+            }
+        });
+
+    })
+
+}
+
+
+function carregarExtrato(dados){
+
+    if(dados) user = dados;
+
+    $.ajax({
+        type: "GET",
+        url: `http://localhost:6060/extrato/${user.id}/`,
+        success: function (result) {
+
+            $(".table-extrato tbody").html("");
+
+            if(!result.extrato.length){
+                $(".table-extrato tbody").append(`
+                <tr>
+                    <td colspan="4" style="text-align:center">Você ainda não possui nenhum movimento, assim que você tiver, eles irão aparecer aqui.</td>
+                </tr>`)
+                return false;
+            };
+
+            result.extrato.forEach(movimento => {
+                $(".table-extrato tbody").append(`
+                <tr class="${movimento.tipo_id == 1 ? 'linha-entrada' : 'linha-saida'}">
+                    <td>${movimento.descricao}</td>
+                    <td class="td-valor">R$${movimento.valor.toFixed(2)}</td>
+                    <td>${moment(movimento.data, "YYYY-MM-DD").format("DD/MM/YYYY")}</td>
+                    <td><button class="btn-excluir-tabela" onclick="excluirMovimento(${movimento.movimento_id})">Excluir</button></td>
+                </tr>`)
+            });
+
+            let totalEntradas = 0;
+            let totalSaidas = 0;
+
+            let entradas = new Array();
+            let saidas = new Array();
+
+            result.extrato.map(movimento =>{
+                if(movimento.tipo_id == 1){
+                    entradas.push(movimento);
+                    totalEntradas += movimento.valor;
+                }
+                else{
+                    saidas.push(movimento);
+                    totalSaidas += movimento.valor;
+                }
+            })
+
+            let saldo = totalEntradas - totalSaidas;
+
+           $("#cardSaldo .card-value").text("R$" + saldo.toFixed(2));
+           $("#cardEntradas .card-value").text("R$" + totalEntradas.toFixed(2));
+           $("#cardSaidas .card-value").text("R$" + totalSaidas.toFixed(2));
+
+
+        },
+        error: function (result) {
+            console.log(result)
+        }
+    });
+}
+
+function excluirMovimento(movimentoId){
+
+    dados = {
+        movimentoId: movimentoId,
+        userId: user.id
+    }
+
+    $.ajax({
+        type: "POST",
+        url: `http://localhost:6060/movimento/delete/`,
+        data: dados,
+        success: function (result) {
+            carregarExtrato();
+        },
+        error: function (result) {
+            console.log(result);
+            window.alert(result.message);
+        }
+    });
 }

@@ -7,9 +7,9 @@ const db = new sqlite3.Database('./sqlite.db', sqlite3.OPEN_READWRITE, (err: Err
 })
 
 interface Movimento {
-    id: Number;
-    userId: Number;
-    tipoId: Number;
+    movimento_id: Number;
+    user_id: Number;
+    tipo_id: Number;
     descricao: String;
     valor: String;
     data: String;
@@ -21,7 +21,7 @@ const getExtrato = async (req: Request, res: Response, next: NextFunction) => {
     const userId: string = req.params.userId;
 
     const sql = `SELECT * FROM movimentos INNER JOIN tipos ON tipos.id = movimentos.tipo_id WHERE movimentos.user_id = '${userId}'`;
-    db.all(sql, [], (err: Error, rows: Array<any>) => {
+    db.all(sql, [], (err: Error, rows: Array<Movimento>) => {
 
         //Error Handling
         if(err){
@@ -43,9 +43,9 @@ const addMovimento = async (req: Request, res: Response, next: NextFunction) => 
     const tipoId: string = req.body.tipoId;
     const valor: string = req.body.valor;
 
-    if(!userId || !tipoId || !valor) return res.status(500).json({message: "Os dados podem ser nulos."});
+    if(!userId || !tipoId || !valor) return res.status(500).json({message: "Os dados não podem ser nulos."});
 
-    const sql = `INSERT INTO movimentos (user_id, tipo_id, valor, data) VALUES(?,?,?, DATE('now'))`
+    const sql = `INSERT INTO movimentos (user_id, tipo_id, valor, data) VALUES(?,?,?, strftime('%Y-%m-%d %H:%M:%S', datetime('now')))`
     db.run(sql, [userId, tipoId, valor], (err: Error) => {
         //Error Handling
         if(err){
@@ -64,8 +64,7 @@ const delMovimento = async (req: Request, res: Response, next: NextFunction) => 
 
     if(!userId || !movimentoId) return res.status(500).json({message: "Os dados podem ser nulos."});
 
-    const sql = `DELETE FROM movimentos WHERE id = ${movimentoId}`;
-    console.log(sql)
+    const sql = `DELETE FROM movimentos WHERE movimento_id = ${movimentoId}`;
     db.run(sql, (err: Error) => {
         //Error Handling
         if(err){
