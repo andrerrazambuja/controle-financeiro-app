@@ -12,28 +12,7 @@ interface User {
     password: String;
 }
 
-// consulta um user
-const getUser = async (req: Request, res: Response, next: NextFunction) => {
-    // pega o id do usuário dos parametros da requisição
-    const id: string = req.params.id;
-
-    const sql = `SELECT * FROM users WHERE id = ${id}`;
-    db.all(sql, [], (err: Error, rows: Array<any>) => {
-
-        //Error Handling
-        if(err){
-            return res.status(500).json({message: err.message});
-        }
-
-        //Retorna o usuário
-        return res.status(200).json({
-            message: rows[0] ? "Ok." : "Nenhum usuário encontrado",
-            usuario: rows ? rows[0] : null
-        });
-    })
-};
-
-// consulta um user
+// autentica um user
 const authUser = async (req: Request, res: Response, next: NextFunction) => {
     // pega o username/senha do usuário dos parametros da requisição
     const username: string = req.params.username;
