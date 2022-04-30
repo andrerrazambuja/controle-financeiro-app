@@ -75,4 +75,4 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
 };
 
 
-export default { getUser, authUser, registerUser };
+export default { authUser, registerUser };
