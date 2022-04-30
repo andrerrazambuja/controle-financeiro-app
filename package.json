@@ -5,8 +5,9 @@
   "main": "source/server.ts",
   "scripts": {
     "dev": "nodemon source/server.ts",
-    "start": "nodemon source/server.ts",
-    "build": "rm -rf build/ && prettier --write source/ && tsc && cd client && npm install && npm run build"
+    "start": "node server",
+    "heroku-postbuild": "cd client/ && npm install && npm run build",
+    "build": "rm -rf build/ && prettier --write source/ && tsc"
   },
   "repository": {
     "type": "git",
