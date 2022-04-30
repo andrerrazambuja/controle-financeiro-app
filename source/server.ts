@@ -85,7 +85,7 @@ db.close((err: Error) => {
 //#region SERVER API
 const router: Express = express();
 
-router.use(express.static(path.resolve(__dirname, './client/public/')));
+router.use(express.static(path.resolve(__dirname, '../client/public/')));
 router.use(morgan('dev'));
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
