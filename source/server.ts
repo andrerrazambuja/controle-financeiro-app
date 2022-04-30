@@ -2,6 +2,7 @@
 import http from 'http';
 import express, { Express } from 'express';
 import morgan from 'morgan';
+const path = require('path');
 
 const sqlite3 = require('sqlite3').verbose();
 
@@ -84,6 +85,7 @@ db.close((err: Error) => {
 //#region SERVER API
 const router: Express = express();
 
+router.use(express.static(path.resolve(__dirname, './client/public/')));
 router.use(morgan('dev'));
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
@@ -105,6 +107,11 @@ router.use((req, res, next) => {
 router.use('/auth/', auth);
 
 router.use('/', finance);
+
+router.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/views', 'index.html'));
+})
+
 
 
 /** Error handling */
