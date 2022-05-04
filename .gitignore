@@ -6,6 +6,9 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# Folder com a build do projeto
+/build
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -104,4 +107,4 @@ dist
 .tern-port
 
 #SQLite
-sqlite.db
+*.db

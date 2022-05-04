@@ -5,7 +5,8 @@
   "main": "source/server.ts",
   "scripts": {
     "start": "nodemon source/server.ts",
-    "build": "npm install && cd client && npm install"
+    "build": "tsc --project tsconfig.json",
+    "start-build": "cd ./build && node server.js"
   },
   "repository": {
     "type": "git",
